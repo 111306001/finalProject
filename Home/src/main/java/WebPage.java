@@ -19,7 +19,6 @@ public class WebPage
 	{
 		score = 0;
 //		1. calculate score
-		System.out.println("website's name: " + this.name + ", keyword:");
 		for (Keyword k : keywords)
 		{
 			int count=counter.countKeyword(k.name);

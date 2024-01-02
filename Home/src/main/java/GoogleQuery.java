@@ -73,10 +73,4 @@ public class GoogleQuery {
 		}
 		return retVal;
 	}
-	public void reRankGoogleWebSites(ArrayList<WebPage> googleWebSites, ArrayList<Keyword> keywords) throws IOException {
-        for (WebPage site : googleWebSites) {
-            site.setScore(keywords);
-            // Re-rank Google websites based on scores obtained from keywords
-        }
-    }
 }

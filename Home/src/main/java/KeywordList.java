@@ -111,9 +111,7 @@ public class KeywordList
 		}
 	}
 
-
-	public void outputScore()
-	{
+	public void outputScore(){
 		float results = 0;
 		// 1.To calculate all keyword's count*weight
 		for (int i = 0; i < lst.size(); i++)
@@ -121,7 +119,6 @@ public class KeywordList
 			Keyword k = lst.get(i);
 			results += k.weight * k.count;
 		}
-		System.out.println(results);
 	}
 
 	private void printKeywordList(LinkedList<Keyword> kLst)
@@ -136,10 +133,5 @@ public class KeywordList
 		}
 		System.out.println(sb.toString());
 	}
-	public void rankWebPagesByKeywords(ArrayList<WebPage> webPages, ArrayList<Keyword> keywords) throws IOException {
-        for (WebPage page : webPages) {
-            page.setScore(keywords);
-            // Implement ranking logic here using the WebPage scores
-        }
-    }
+	
 }
