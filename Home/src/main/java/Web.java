@@ -1,12 +1,11 @@
-import java.io.IOException;
 
 public class Web {
 	public WebPage rootPage;
 	public WebTree tree;
 	
-	public Web(String query, String word) {
+	public Web(String url, String word) {
 		// TODO Auto-generated method stub
-		rootPage = new WebPage(query, word);		
+		rootPage = new WebPage(url, word);		
 		tree = new WebTree(rootPage);
 	}
 	public void treeRootAddChild(String query, String word) {

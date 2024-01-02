@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import org.jsoup.Jsoup;
@@ -72,9 +73,10 @@ public class GoogleQuery {
 		}
 		return retVal;
 	}
-
-	
-
-	
-
+	public void reRankGoogleWebSites(ArrayList<WebPage> googleWebSites, ArrayList<Keyword> keywords) throws IOException {
+        for (WebPage site : googleWebSites) {
+            site.setScore(keywords);
+            // Re-rank Google websites based on scores obtained from keywords
+        }
+    }
 }

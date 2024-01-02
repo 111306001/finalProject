@@ -34,16 +34,14 @@ public class TestProject extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		
-		for(int i = 0; i < request.getParameter("keyword").hashCode(); i++) {
-			String input = request.getParameter("keyword");
-			Keyword keyword = new Keyword(input, 0);
-			lst.add(keyword);
-			if(input == null) {
-				String requestUri = request.getRequestURI();
-				request.setAttribute("requestUri", requestUri);
-				request.getRequestDispatcher("Search.jsp").forward(request, response);
-				return;
-			}
+		String input = request.getParameter("keyword");
+		Keyword keyword = new Keyword(input, 0);
+		lst.add(keyword);
+		if(input == null) {
+			String requestUri = request.getRequestURI();
+			request.setAttribute("requestUri", requestUri);
+			request.getRequestDispatcher("Search.jsp").forward(request, response);
+			return;
 		}
 		
 		String words = "";

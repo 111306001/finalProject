@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 public class KeywordList
@@ -110,22 +111,6 @@ public class KeywordList
 		}
 	}
 
-	public void outputFirstN(int n)
-	{
-		if (n > lst.size())
-		{
-			System.out.println("InvalidOperation");
-			return;
-		}
-		LinkedList<Keyword> found = new LinkedList<>();
-
-		for (int i = 0; i < n; i++)
-		{
-			Keyword k = lst.get(i);
-			found.add(k);
-		}
-		printKeywordList(found);
-	}
 
 	public void outputScore()
 	{
@@ -151,4 +136,10 @@ public class KeywordList
 		}
 		System.out.println(sb.toString());
 	}
+	public void rankWebPagesByKeywords(ArrayList<WebPage> webPages, ArrayList<Keyword> keywords) throws IOException {
+        for (WebPage page : webPages) {
+            page.setScore(keywords);
+            // Implement ranking logic here using the WebPage scores
+        }
+    }
 }

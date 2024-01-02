@@ -26,4 +26,5 @@ public class WebPage
 			score += count * k.weight;
 		}
 	}
+	
 }
