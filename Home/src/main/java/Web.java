@@ -3,7 +3,8 @@ import java.io.IOException;
 public class Web {
 	public WebPage rootPage;
 	public WebTree tree;
-	public void Web(String query, String word) {
+	
+	public Web(String query, String word) {
 		// TODO Auto-generated method stub
 		rootPage = new WebPage(query, word);		
 		tree = new WebTree(rootPage);
