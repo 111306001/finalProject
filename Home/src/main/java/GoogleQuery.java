@@ -26,9 +26,11 @@ public class GoogleQuery {
 
 	private String fetchContent() throws IOException{
 		String retVal = "";
+		
 		URL u = new URL(url);
 		URLConnection conn = u.openConnection();
 		conn.setRequestProperty("User-agent", "Chrome/7.0.517.44");
+		
 		InputStream in = conn.getInputStream();
 		InputStreamReader inReader = new InputStreamReader(in,"utf-8");
 
