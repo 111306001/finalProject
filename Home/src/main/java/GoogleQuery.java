@@ -17,7 +17,7 @@ public class GoogleQuery {
 	public String url;
 	public String content;
 	
-//	public PriorityQueue<WebNode> heap;
+	public PriorityQueue<WebNode> heap;
 	
 	public GoogleQuery(String searchKeyword){
 		this.searchKeyword = searchKeyword;
@@ -50,9 +50,9 @@ public class GoogleQuery {
 		Document doc = Jsoup.parse(content);
 		System.out.println(doc.text());
 		Elements lis = doc.select("div");
-//		 System.out.println(lis);
+		System.out.println(lis);
 		lis = lis.select(".kCrYT");
-		// System.out.println(lis.size());
+		System.out.println(lis.size());
 		
 		for(Element li : lis){
 			try {
@@ -65,7 +65,7 @@ public class GoogleQuery {
 				retVal.put(title, citeUrl);
 			}
 			catch (IndexOutOfBoundsException e) {
-//				e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
 		return retVal;
