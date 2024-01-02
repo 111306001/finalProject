@@ -23,9 +23,7 @@ public class WebPage
 		for (Keyword k : keywords)
 		{
 			int count=counter.countKeyword(k.name);
-			System.out.println(k.name+" weight: "+k.weight+" count: "+count);
 			score += count * k.weight;
 		}
-		System.out.println("score: "+score);
 	}
 }

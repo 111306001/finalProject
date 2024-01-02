@@ -1,20 +1,15 @@
 import java.io.IOException;
 
 public class Web {
-
-	public static void main(String[] args) throws IOException {
+	public WebPage rootPage;
+	public WebTree tree;
+	public void Web(String query, String word) {
 		// TODO Auto-generated method stub
-		WebPage rootPage = new WebPage("http://soslab.nccu.edu.tw/Welcome.html", "Soslab");		
-		WebTree tree = new WebTree(rootPage);
-		
-		//build childnode
-		tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Publications.html","Publication")));
-		tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Projects.html","Projects")));
-		tree.root.children.get(1).addChild(new WebNode(new WebPage("https://vlab.cs.ucsb.edu/stranger/", "Stranger")));
-//		tree.root.children.get(1).addChild(new WebNode(new WebPage("http://soslab.xyz:7777", "AppBeach")));
-		tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Members.html", "Member")));
-		tree.root.addChild(new WebNode(new WebPage("http://soslab.nccu.edu.tw/Courses.html","Course")));
-		
+		rootPage = new WebPage(query, word);		
+		tree = new WebTree(rootPage);
+	}
+	public void treeRootAddChild(String query, String word) {
+		tree.root.addChild(new WebNode(new WebPage(query, word)));
 	}
 
 }
