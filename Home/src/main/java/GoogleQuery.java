@@ -16,8 +16,9 @@ public class GoogleQuery {
 	public String searchKeyword;
 	public String url;
 	public String content;
+	
 //	public PriorityQueue<WebNode> heap;
-
+	
 	public GoogleQuery(String searchKeyword){
 		this.searchKeyword = searchKeyword;
 		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
