@@ -17,9 +17,9 @@ public class WebTree {
 		
 		for(WebNode n: startNode.children) {
 			setPostOrderScore(n, keywords);
-			n.setNodeScore(keywords);
+			n.getNodeScore(keywords);
 		}
-		startNode.setNodeScore(keywords);
+		startNode.getNodeScore(keywords);
 		
 	}
 	

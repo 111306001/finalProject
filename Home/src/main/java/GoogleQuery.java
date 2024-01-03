@@ -27,6 +27,7 @@ public class GoogleQuery {
 
 	public GoogleQuery(String searchKeyword){
 		this.searchKeyword = searchKeyword;
+		this.keywordList = new ArrayList<>();
 		keywordList.add(new Keyword(searchKeyword, 0, 1));
 		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
 		node = new WebNode(new WebPage(url));
@@ -55,8 +56,7 @@ public class GoogleQuery {
 		return retVal;
 	}
 	public void Rank() throws IOException {
-		//rank網頁按照分數
-		//按照大小存到heap 再取代原本的
+		
 		if(content==null){
 			content= fetchContent();
 		}
@@ -69,8 +69,10 @@ public class GoogleQuery {
 			}
 			return 0;
 		});
-		for(WebNode child : node.children) {
-	        heap.add(child);
+		if (node.children != null) {
+	        for (WebNode child : node.children) {
+	            heap.add(child);
+	        }
 	    }
 //		for(int i = 0; i < node.children.size(); i++) {
 //			
