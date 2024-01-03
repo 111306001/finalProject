@@ -1,27 +1,16 @@
 import java.io.BufferedReader;
-
 import java.io.IOException;
-
 import java.io.InputStream;
-
 import java.io.InputStreamReader;
-
 import java.net.URL;
-
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
-
 import org.jsoup.Jsoup;
-
 import org.jsoup.nodes.Document;
-
 import org.jsoup.nodes.Element;
-
 import org.jsoup.select.Elements;
-
-
 
 public class GoogleQuery {
 
@@ -38,11 +27,10 @@ public class GoogleQuery {
 
 	public GoogleQuery(String searchKeyword){
 		this.searchKeyword = searchKeyword;
-		keywordList.add(new Keyword(searchKeyword, 0));
+		keywordList.add(new Keyword(searchKeyword, 0, 1));
 		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
 		node = new WebNode(new WebPage(url));
 		urlList = new ArrayList<String>();
-
 	}
 
 	private String fetchContent() throws IOException{
@@ -72,20 +60,32 @@ public class GoogleQuery {
 		if(content==null){
 			content= fetchContent();
 		}
-		for(int i = 0; i < node.children.size(); i++) {
-			
-			WebNode small = node.children.get(i);;
-			WebNode tem;
-			WebNode big = node.children.get(i + 1);
-			
-			if(small.setNodeScore(keywordList) <= big.setNodeScore(keywordList)) {
-				heap.add(small);
-				tem = big;
+		heap = new PriorityQueue<>((a, b) -> {
+			try {
+				return Double.compare(b.getNodeScore(keywordList), a.getNodeScore(keywordList));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			else {
-				heap.add(node.children.get(i+1));
-			}
-		}
+			return 0;
+		});
+		for(WebNode child : node.children) {
+	        heap.add(child);
+	    }
+//		for(int i = 0; i < node.children.size(); i++) {
+//			
+//			WebNode small = node.children.get(i);;
+//			WebNode tem;
+//			WebNode big = node.children.get(i + 1);
+//			
+//			if(small.setNodeScore(keywordList) <= big.setNodeScore(keywordList)) {
+//				heap.add(small);
+//				tem = big;
+//			}
+//			else {
+//				heap.add(node.children.get(i + 1));
+//			}
+//		}
 	}
 	public HashMap<String, String> query() throws IOException{
 		
@@ -119,9 +119,5 @@ public class GoogleQuery {
 		return retVal;
 
 	}
-
-	
-
-	
 
 }

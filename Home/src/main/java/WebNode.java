@@ -12,7 +12,7 @@ public class WebNode {
 		this.children = new ArrayList<WebNode>();
 	}
 	
-	public double setNodeScore(ArrayList<Keyword> keywords) throws IOException{
+	public double getNodeScore(ArrayList<Keyword> keywords) throws IOException{
 		//this method should be called in post-order mode
 		
 		//compute webPage score
@@ -49,4 +49,6 @@ public class WebNode {
 		}
 		return retVal;
 	}
+
+	
 }
