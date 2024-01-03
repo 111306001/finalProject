@@ -27,14 +27,12 @@ public class GoogleQuery {
 
 	public GoogleQuery(String searchKeyword){
 		this.searchKeyword = searchKeyword;
-		
-		keywordList = new ArrayList<Keyword>();
-		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
+		this.keywordList = new ArrayList<>();
 		keywordList.add(new Keyword(searchKeyword, 0, 1));
+		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
 		node = new WebNode(new WebPage(url));
 		urlList = new ArrayList<String>();
 	}
-
 	private String fetchContent() throws IOException{
 		
 		String retVal = "";
@@ -53,16 +51,17 @@ public class GoogleQuery {
 			urlList.add(line);
 			retVal += line;
 		}
+		if (retVal.isEmpty()) { // Add a null check here
+	        throw new IOException("Failed to fetch content or content is empty");
+	    }
 
 		return retVal;
 	}
 	public void Rank() throws IOException {
-		//rank網頁按照分數
-		//按照大小存到heap 再取代原本的
-		if(content==null){
-			content= fetchContent();
-		}
-		heap = new PriorityQueue<>((a, b) -> {
+	    if(content == null) {
+	        content = fetchContent();
+	    }
+	    heap = new PriorityQueue<>((a, b) -> {
 			try {
 				return Double.compare(b.getNodeScore(keywordList), a.getNodeScore(keywordList));
 			} catch (IOException e) {
@@ -71,21 +70,23 @@ public class GoogleQuery {
 			}
 			return 0;
 		});
-		for(WebNode child : node.children) {
-	        heap.add(child);
+	    if (node.children != null) {
+	        for (WebNode child : node.children) {
+	            heap.add(child);
+	        }
 	    }
+
 	}
 	public HashMap<String, String> query() throws IOException{
-		
-		Rank();
+
 		HashMap<String, String> retVal = new HashMap<String, String>();
 		
 		Document doc = Jsoup.parse(content);
-		System.out.println(doc.text());
+		//System.out.println(doc.text());
 		Elements lis = doc.select("div");
-		System.out.println(lis);
+		//System.out.println(lis);
 		lis = lis.select(".kCrYT");
-		System.out.println(lis.size());
+		//System.out.println(lis.size());
 		
 		for(Element li : lis){
 			try {

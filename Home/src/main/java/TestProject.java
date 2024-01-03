@@ -35,14 +35,15 @@ public class TestProject extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		
-		if(request.getParameter("keyword") == null) {
-			String requestUri = request.getRequestURI();
-			request.setAttribute("requestUri", requestUri);
-			request.getRequestDispatcher("Search.jsp").forward(request, response);
-			return;
-		}
+		if(request.getParameter("keyword") == null || request.getParameter("keyword").isEmpty()) {
+	        String requestUri = request.getRequestURI();
+	        request.setAttribute("requestUri", requestUri);
+	        request.getRequestDispatcher("Search.jsp").forward(request, response);
+	        return;
+	    }
+		String encodedKeyword = request.getParameter("keyword").replaceAll(" ", "%20");
 		
-		GoogleQuery google = new GoogleQuery(request.getParameter("keyword"));
+		GoogleQuery google = new GoogleQuery(encodedKeyword);
 		HashMap<String, String> query = google.query();
 		
 		if (query == null) {
