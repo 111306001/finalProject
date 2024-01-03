@@ -27,8 +27,10 @@ public class GoogleQuery {
 
 	public GoogleQuery(String searchKeyword){
 		this.searchKeyword = searchKeyword;
-		keywordList.add(new Keyword(searchKeyword, 0, 1));
+		
+		keywordList = new ArrayList<Keyword>();
 		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
+		keywordList.add(new Keyword(searchKeyword, 0, 1));
 		node = new WebNode(new WebPage(url));
 		urlList = new ArrayList<String>();
 	}
@@ -72,32 +74,18 @@ public class GoogleQuery {
 		for(WebNode child : node.children) {
 	        heap.add(child);
 	    }
-//		for(int i = 0; i < node.children.size(); i++) {
-//			
-//			WebNode small = node.children.get(i);;
-//			WebNode tem;
-//			WebNode big = node.children.get(i + 1);
-//			
-//			if(small.setNodeScore(keywordList) <= big.setNodeScore(keywordList)) {
-//				heap.add(small);
-//				tem = big;
-//			}
-//			else {
-//				heap.add(node.children.get(i + 1));
-//			}
-//		}
 	}
 	public HashMap<String, String> query() throws IOException{
 		
-
+		Rank();
 		HashMap<String, String> retVal = new HashMap<String, String>();
 		
 		Document doc = Jsoup.parse(content);
 		System.out.println(doc.text());
 		Elements lis = doc.select("div");
-		 System.out.println(lis);
+		System.out.println(lis);
 		lis = lis.select(".kCrYT");
-		 System.out.println(lis.size());
+		System.out.println(lis.size());
 		
 		for(Element li : lis){
 			try {
