@@ -27,7 +27,6 @@ public class GoogleQuery {
 
 	public GoogleQuery(String searchKeyword){
 		this.searchKeyword = searchKeyword;
-		this.keywordList = new ArrayList<>();
 		keywordList.add(new Keyword(searchKeyword, 0, 1));
 		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
 		node = new WebNode(new WebPage(url));
@@ -52,17 +51,15 @@ public class GoogleQuery {
 			urlList.add(line);
 			retVal += line;
 		}
-		if (retVal.isEmpty()) { // Add a null check here
-	        throw new IOException("Failed to fetch content or content is empty");
-	    }
+
 		return retVal;
 	}
 	public void Rank() throws IOException {
-		
+		//rank網頁按照分數
+		//按照大小存到heap 再取代原本的
 		if(content==null){
 			content= fetchContent();
 		}
-		
 		heap = new PriorityQueue<>((a, b) -> {
 			try {
 				return Double.compare(b.getNodeScore(keywordList), a.getNodeScore(keywordList));
@@ -72,11 +69,23 @@ public class GoogleQuery {
 			}
 			return 0;
 		});
-		if (node.children != null) {
-	        for (WebNode child : node.children) {
-	            heap.add(child);
-	        }
+		for(WebNode child : node.children) {
+	        heap.add(child);
 	    }
+//		for(int i = 0; i < node.children.size(); i++) {
+//			
+//			WebNode small = node.children.get(i);;
+//			WebNode tem;
+//			WebNode big = node.children.get(i + 1);
+//			
+//			if(small.setNodeScore(keywordList) <= big.setNodeScore(keywordList)) {
+//				heap.add(small);
+//				tem = big;
+//			}
+//			else {
+//				heap.add(node.children.get(i + 1));
+//			}
+//		}
 	}
 	public HashMap<String, String> query() throws IOException{
 		
