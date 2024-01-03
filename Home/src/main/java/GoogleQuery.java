@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import java.net.URLConnection;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -23,72 +23,84 @@ import org.jsoup.select.Elements;
 
 
 
-public class GoogleQuery 
-
-{
+public class GoogleQuery {
 
 	public String searchKeyword;
-
 	public String url;
-
 	public String content;
+	public Web webs;
+	public WordCounter wordCounter;
+	public WebNode node;
+	public ArrayList<String> urlList;
+	public ArrayList<Keyword> keywordList;
 	
-//	public PriorityQueue<WebNode> heap;
+	public PriorityQueue<WebNode> heap;
 
 	public GoogleQuery(String searchKeyword){
 		this.searchKeyword = searchKeyword;
+		keywordList.add(new Keyword(searchKeyword, 0));
 		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
+		node = new WebNode(new WebPage(url));
+		urlList = new ArrayList<String>();
+
 	}
 
 	private String fetchContent() throws IOException{
+		
 		String retVal = "";
-
 		URL u = new URL(url);
-
 		URLConnection conn = u.openConnection();
-
 		conn.setRequestProperty("User-agent", "Chrome/7.0.517.44");
-
 		InputStream in = conn.getInputStream();
-
 		InputStreamReader inReader = new InputStreamReader(in,"utf-8");
-
 		BufferedReader bufReader = new BufferedReader(inReader);
+		
 		String line = null;
-
-		while((line=bufReader.readLine())!=null)
-		{
+		while((line = bufReader.readLine())!= null)
+		{	
+			webs = new Web(line);
+			webs.treeRootAddChild(line, searchKeyword);
+			urlList.add(line);
 			retVal += line;
-
 		}
+
 		return retVal;
 	}
-	public HashMap<String, String> query() throws IOException
-
-	{
-
-		if(content==null)
-		{
-
+	public void Rank() throws IOException {
+		//rank網頁按照分數
+		//按照大小存到heap 再取代原本的
+		if(content==null){
 			content= fetchContent();
-
 		}
+		for(int i = 0; i < node.children.size(); i++) {
+			
+			WebNode small = node.children.get(i);;
+			WebNode tem;
+			WebNode big = node.children.get(i + 1);
+			
+			if(small.setNodeScore(keywordList) <= big.setNodeScore(keywordList)) {
+				heap.add(small);
+				tem = big;
+			}
+			else {
+				heap.add(node.children.get(i+1));
+			}
+		}
+	}
+	public HashMap<String, String> query() throws IOException{
+		
 
 		HashMap<String, String> retVal = new HashMap<String, String>();
 		
 		Document doc = Jsoup.parse(content);
 		System.out.println(doc.text());
 		Elements lis = doc.select("div");
-//		 System.out.println(lis);
+		 System.out.println(lis);
 		lis = lis.select(".kCrYT");
-		// System.out.println(lis.size());
+		 System.out.println(lis.size());
 		
-		
-		for(Element li : lis)
-		{
-			try 
-
-			{
+		for(Element li : lis){
+			try {
 				String citeUrl = li.select("a").get(0).attr("href");
 				String title = li.select("a").get(0).select(".vvjwJb").text();
 				if(title.equals("")) {
@@ -100,11 +112,10 @@ public class GoogleQuery
 
 			} catch (IndexOutOfBoundsException e) {
 
-//				e.printStackTrace();
+				e.printStackTrace();
 
 			}
 	}
-
 		return retVal;
 
 	}
