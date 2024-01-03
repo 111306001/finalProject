@@ -52,7 +52,9 @@ public class GoogleQuery {
 			urlList.add(line);
 			retVal += line;
 		}
-
+		if (retVal.isEmpty()) { // Add a null check here
+	        throw new IOException("Failed to fetch content or content is empty");
+	    }
 		return retVal;
 	}
 	public void Rank() throws IOException {
@@ -60,6 +62,7 @@ public class GoogleQuery {
 		if(content==null){
 			content= fetchContent();
 		}
+		
 		heap = new PriorityQueue<>((a, b) -> {
 			try {
 				return Double.compare(b.getNodeScore(keywordList), a.getNodeScore(keywordList));
@@ -74,20 +77,6 @@ public class GoogleQuery {
 	            heap.add(child);
 	        }
 	    }
-//		for(int i = 0; i < node.children.size(); i++) {
-//			
-//			WebNode small = node.children.get(i);;
-//			WebNode tem;
-//			WebNode big = node.children.get(i + 1);
-//			
-//			if(small.setNodeScore(keywordList) <= big.setNodeScore(keywordList)) {
-//				heap.add(small);
-//				tem = big;
-//			}
-//			else {
-//				heap.add(node.children.get(i + 1));
-//			}
-//		}
 	}
 	public HashMap<String, String> query() throws IOException{
 		
