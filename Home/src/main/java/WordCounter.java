@@ -12,28 +12,7 @@ public class WordCounter {
     public WordCounter(String urlStr){
     	this.urlStr = urlStr;
     }
-    
-    private String fetchContent() throws IOException{
-		URL url = new URL(this.urlStr);
-		URLConnection conn = url.openConnection();
-		InputStream in = conn.getInputStream();
-		BufferedReader br = new BufferedReader(new InputStreamReader(in));
-	
-		String retVal = "";
-	
-		String line = null;
-		
-		while ((line = br.readLine()) != null){
-		    retVal = retVal + line + "\n";
-		}
-	
-		return retVal;
-    }
-    
     public int countKeyword(String keyword) throws IOException{
-		if (content == null){
-		    content = fetchContent();
-		}
 		
 		//To do a case-insensitive search, we turn the whole content and keyword into upper-case:
 		content = content.toUpperCase();

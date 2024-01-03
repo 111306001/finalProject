@@ -23,7 +23,8 @@
 <form action='${requestUri}' method='get'>
     <div>
         <input type='text' class="border-style" id="keyword" name='keyword' placeholder='請輸入關鍵字' onfocus="placeholder= '' " onblur="placeholder='請輸入關鍵字'" />
-        <input type='image' src="images/loupe-2.png" onclick='getName()'/>
+        <input type='image' src="images/loupe-2.png"/>
+        <button type="button" name="add" onclick="getName()">Add</button>
     </div>
     <div>
         <input type='checkbox' name='ticket' value="ticket" >Ticket
