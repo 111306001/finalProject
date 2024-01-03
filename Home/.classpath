@@ -13,7 +13,14 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/eclipse/java-2022-09/eclipse/jsoup-1.16.2.jar"/>
-	<classpathentry kind="lib" path="C:/eclipse/java-2022-09/eclipse/jsoup-1.17.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive - National ChengChi University/資料結構期末報告/Home/src/main/webapp/WEB-INF/lib/axis.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive - National ChengChi University/資料結構期末報告/Home/src/main/webapp/WEB-INF/lib/commons-discovery-0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive - National ChengChi University/資料結構期末報告/Home/src/main/webapp/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive - National ChengChi University/資料結構期末報告/Home/src/main/webapp/WEB-INF/lib/jaxrpc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive - National ChengChi University/資料結構期末報告/Home/src/main/webapp/WEB-INF/lib/jsoup-1.11.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive - National ChengChi University/資料結構期末報告/Home/src/main/webapp/WEB-INF/lib/jsoup-1.16.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive - National ChengChi University/資料結構期末報告/Home/src/main/webapp/WEB-INF/lib/jsoup-1.17.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive - National ChengChi University/資料結構期末報告/Home/src/main/webapp/WEB-INF/lib/saaj.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/OneDrive - National ChengChi University/資料結構期末報告/Home/src/main/webapp/WEB-INF/lib/wsdl4j.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
