@@ -27,7 +27,7 @@ public class GoogleQuery {
 
 	public GoogleQuery(String searchKeyword){
 		this.searchKeyword = searchKeyword;
-		this.keywordList = new ArrayList<>();
+		this.keywordList = new ArrayList<Keyword>();
 		keywordList.add(new Keyword(searchKeyword, 0, 1));
 		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
 		node = new WebNode(new WebPage(url));
@@ -84,11 +84,11 @@ public class GoogleQuery {
 		HashMap<String, String> retVal = new HashMap<String, String>();
 		
 		Document doc = Jsoup.parse(content);
-		//System.out.println(doc.text());
+		System.out.println(doc.text());
 		Elements lis = doc.select("div");
-		//System.out.println(lis);
+		System.out.println(lis);
 		lis = lis.select(".kCrYT");
-		//System.out.println(lis.size());
+		System.out.println(lis.size());
 		
 		for(Element li : lis){
 			try {
