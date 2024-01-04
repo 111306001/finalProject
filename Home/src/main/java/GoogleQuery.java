@@ -78,7 +78,9 @@ public class GoogleQuery {
 
 	}
 	public HashMap<String, String> query() throws IOException{
-
+		if(content == null) {
+	        content = fetchContent();
+	    }
 		HashMap<String, String> retVal = new HashMap<String, String>();
 		
 		Document doc = Jsoup.parse(content);
