@@ -16,11 +16,12 @@
             var keywordInput = document.getElementById('keyword');
             keywordInput.value += resultText.trim();
         }
+
     </script>
 </head>
 <body>
 
-<form action='${requestUri}' method='get'>
+<form action='${requestUri}' method='get' >
     <div>
         <input type='text' class="border-style" id="keyword" name='keyword' placeholder='請輸入關鍵字' onfocus="placeholder= '' " onblur="placeholder='請輸入關鍵字'" />
         <input type='image' src="images/loupe-2.png"/>
