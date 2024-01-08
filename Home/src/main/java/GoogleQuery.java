@@ -22,6 +22,7 @@ public class GoogleQuery {
 	public WebNode node;
 	public ArrayList<String> urlList;
 	public ArrayList<Keyword> keywordList;
+	public KeywordList keywordlist;
 	
 	public PriorityQueue<WebNode> heap;
 
@@ -32,7 +33,16 @@ public class GoogleQuery {
 		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
 		node = new WebNode(new WebPage(url));
 		urlList = new ArrayList<String>();
+		this.keywordlist = new KeywordList();
+        keywordList.add(new Keyword(searchKeyword, 0, 1));
 	}
+	  public void addKeywordToKeywordList(Keyword keyword) {
+	        this.keywordlist.add(keyword);
+	    }
+	  public ArrayList<String> getUrlList() {
+	        // 反回url 的arrayList，確保不會空引用
+	        return urlList != null ? urlList : new ArrayList<>();
+	    }
 	private String fetchContent() throws IOException{
 		
 		String retVal = "";
