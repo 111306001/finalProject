@@ -40,7 +40,7 @@ public class WebTree {
 			eularPrintTree(n);
 		}
 		
-		
+		 
 		System.out.print(")");
 				
 		if(startNode.isTheLastChild()) System.out.print("\n" + repeat("\t", nodeDepth-2));	
