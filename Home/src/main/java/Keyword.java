@@ -6,7 +6,7 @@ public class Keyword {
     public Keyword(String name, int count, int weight){
 		this.name = name;
 		this.count = count;
-		this.weight = weight;
+		this.weight = weight;   
     }
     
     @Override
