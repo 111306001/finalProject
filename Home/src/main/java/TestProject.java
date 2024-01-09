@@ -41,9 +41,9 @@ public class TestProject extends HttpServlet {
 	        request.getRequestDispatcher("Search.jsp").forward(request, response);
 	        return;
 	    }
-		String encodedKeyword = request.getParameter("keyword").replaceAll(" ", "%20");
+		String encodedKeyword = request.getParameter("keyword").replaceAll(" ", "+");
 		
-		GoogleQuery google = new GoogleQuery(encodedKeyword);
+		GoogleQuery google = new GoogleQuery(request.getParameter("keyword"));
 		HashMap<String, String> query = google.query();
 		
 		if (query == null) {

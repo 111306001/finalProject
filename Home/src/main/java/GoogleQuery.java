@@ -22,27 +22,32 @@ public class GoogleQuery {
 	public WebNode node;
 	public ArrayList<String> urlList;
 	public ArrayList<Keyword> keywordList;
-	public KeywordList keywordlist;
 	
 	public PriorityQueue<WebNode> heap;
 
 	public GoogleQuery(String searchKeyword){
 		this.searchKeyword = searchKeyword;
 		this.keywordList = new ArrayList<Keyword>();
-		keywordList.add(new Keyword(searchKeyword, 0, 1));
+		setKeyword(searchKeyword);
+		
 		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
 		node = new WebNode(new WebPage(url));
 		urlList = new ArrayList<String>();
-		this.keywordlist = new KeywordList();
-        keywordList.add(new Keyword(searchKeyword, 0, 1));
+
 	}
-	  public void addKeywordToKeywordList(Keyword keyword) {
-	        this.keywordlist.add(keyword);
-	    }
-	  public ArrayList<String> getUrlList() {
-	        // 反回url 的arrayList，確保不會空引用
-	        return urlList != null ? urlList : new ArrayList<>();
-	    }
+	public void setKeyword(String searchKeyword) {
+		String[] inputList = searchKeyword.split(" ");
+		for(int i = 0; i < inputList.length; i++) {
+			keywordList.add(new Keyword(inputList[i], 0 ,1));
+		}
+		
+	}
+	
+	 public ArrayList<String> getUrlList() {
+		 // 反回url 的arrayList，確保不會空引用
+		 return urlList != null ? urlList : new ArrayList<>();
+	 }
+	 
 	private String fetchContent() throws IOException{
 		
 		String retVal = "";
@@ -96,9 +101,9 @@ public class GoogleQuery {
 		Document doc = Jsoup.parse(content);
 		System.out.println(doc.text());
 		Elements lis = doc.select("div");
-		System.out.println(lis);
+		//System.out.println(lis);
 		lis = lis.select(".kCrYT");
-		System.out.println(lis.size());
+		//System.out.println(lis.size());
 		
 		for(Element li : lis){
 			try {
@@ -107,18 +112,14 @@ public class GoogleQuery {
 				if(title.equals("")) {
 					continue;
 				}
-				
 				System.out.println(title + ","+citeUrl);
 				retVal.put(title, citeUrl);
-
+				
 			} catch (IndexOutOfBoundsException e) {
-
-				e.printStackTrace();
-
+				//e.printStackTrace();
 			}
-	}
+		}
+
 		return retVal;
-
 	}
-
 }

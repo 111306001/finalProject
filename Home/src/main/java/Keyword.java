@@ -1,9 +1,9 @@
 public class Keyword {
 	public String name;
     public int count;
-    public float weight;
+    public double weight;
     
-    public Keyword(String name, int count, int weight){
+    public Keyword(String name, int count, double weight){
 		this.name = name;
 		this.count = count;
 		this.weight = weight;   
@@ -24,8 +24,12 @@ public class Keyword {
     	return name;
     }
     
-    public float getWeight()
+    public double getWeight()
     {
-    	return weight;
+    	return (double) weight;
+    }
+    public void setWeight(double weight)
+    {
+    	this.weight = weight;
     }
 }
