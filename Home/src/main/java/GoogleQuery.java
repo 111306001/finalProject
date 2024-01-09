@@ -22,9 +22,9 @@ public class GoogleQuery {
 	public WebNode node;
 	public ArrayList<String> urlList;
 	public ArrayList<Keyword> keywordList;
-	
 	public PriorityQueue<WebNode> heap;
-
+	public Client client;
+	
 	public GoogleQuery(String searchKeyword){
 		this.searchKeyword = searchKeyword;
 		this.keywordList = new ArrayList<Keyword>();
@@ -32,13 +32,21 @@ public class GoogleQuery {
 		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
 		node = new WebNode(new WebPage(url));
 		urlList = new ArrayList<String>();
-		
 	}
-	public void setKeyword(String searchKeyword) {
+	public void setKeyword(String searchKeyword) throws IOException {
+		
 		String[] inputList = searchKeyword.split(" ");
+		ArrayList<String> inputs = new ArrayList<String>();
+		client = new Client(keywordList);
+		for(int i = 0; i < inputList.length; i++) {
+			inputs.add(inputList[i]);
+		}
 		for(int i = 0; i < inputList.length; i++) {
 			keywordList.add(new Keyword(inputList[i], 0 ,1));
+			
 		}
+		client.setKeywordWeight(inputs);
+		
 	}
 	
 	 public ArrayList<String> getUrlList() {
@@ -66,13 +74,19 @@ public class GoogleQuery {
 		if (retVal.isEmpty()) { // Add a null check here
 	        throw new IOException("Failed to fetch content or content is empty");
 	    }
-
+		
 		return retVal;
 	}
 	public void Rank() throws IOException {
 	    if(content == null) {
 	        content = fetchContent();
 	    }
+	    if (node.children != null) {
+	        for (WebNode child : node.children) {
+	            heap.add(child);
+	        }
+	    }
+	    
 	    heap = new PriorityQueue<>((a, b) -> {
 			try {
 				return Double.compare(b.getNodeScore(keywordList), a.getNodeScore(keywordList));
@@ -82,21 +96,17 @@ public class GoogleQuery {
 			}
 			return 0;
 		});
-	    if (node.children != null) {
-	        for (WebNode child : node.children) {
-	            heap.add(child);
-	        }
-	    }
-
+	    
 	}
 	public HashMap<String, String> query() throws IOException{
 		if(content == null) {
 	        content = fetchContent();
 	    }
+		
 		HashMap<String, String> retVal = new HashMap<String, String>();
 		
 		Document doc = Jsoup.parse(content);
-		System.out.println(doc.text());
+		//System.out.println(doc.text());
 		Elements lis = doc.select("div");
 		//System.out.println(lis);
 		lis = lis.select(".kCrYT");
@@ -116,7 +126,6 @@ public class GoogleQuery {
 				//e.printStackTrace();
 			}
 		}
-
 		return retVal;
 	}
 }

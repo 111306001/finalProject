@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Web {
 	public WebPage rootPage;
@@ -12,8 +14,8 @@ public class Web {
 	public void treeRootAddChild(String query, String word) {
 		tree.root.addChild(new WebNode(new WebPage(query)));
 	}
-	public void addKeywordToKeywordList(Keyword keyword) {
-        this.keywordList.add(keyword);
-    }
-
+	public double getWebScore(ArrayList<Keyword> keywordList) throws IOException {
+		tree.root.webPage.setScore(keywordList);
+		return tree.root.webPage.score;
+	}
 }

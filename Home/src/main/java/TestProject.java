@@ -43,7 +43,8 @@ public class TestProject extends HttpServlet {
 	    }
 		String encodedKeyword = request.getParameter("keyword").replaceAll(" ", "+");
 		
-		GoogleQuery google = new GoogleQuery(request.getParameter("keyword"));
+		GoogleQuery google = new GoogleQuery(encodedKeyword);
+		google.Rank();
 		HashMap<String, String> query = google.query();
 		
 		if (query == null) {

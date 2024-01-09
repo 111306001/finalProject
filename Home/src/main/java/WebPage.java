@@ -20,7 +20,7 @@ public class WebPage
 //		1. calculate score
 		for (Keyword k : keywords)
 		{
-			int count=counter.countKeyword(k.name);
+			int count = counter.countKeyword(k.name);
 			score += count * k.weight;
 		}
 	}

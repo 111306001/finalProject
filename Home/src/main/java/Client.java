@@ -15,7 +15,7 @@ class Client {
 		this.keywordList = keywordList;
 	}
 	
-    public ArrayList<Keyword> getKeywordWeight(ArrayList<String> list) throws IOException
+    public void setKeywordWeight(ArrayList<String> list) throws IOException
 	{
         // Concat all string in list into one string
         StringBuilder sb = new StringBuilder();
@@ -68,6 +68,5 @@ class Client {
         	System.out.print(keywords.toString());
         }
         
-		return keywordList;
 	}
 };
