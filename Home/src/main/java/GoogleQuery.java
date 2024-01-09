@@ -29,22 +29,19 @@ public class GoogleQuery {
 		this.searchKeyword = searchKeyword;
 		this.keywordList = new ArrayList<Keyword>();
 		setKeyword(searchKeyword);
-		
 		this.url = "http://www.google.com/search?q="+searchKeyword+"&oe=utf8&num=10";
 		node = new WebNode(new WebPage(url));
 		urlList = new ArrayList<String>();
-
+		
 	}
 	public void setKeyword(String searchKeyword) {
 		String[] inputList = searchKeyword.split(" ");
 		for(int i = 0; i < inputList.length; i++) {
 			keywordList.add(new Keyword(inputList[i], 0 ,1));
 		}
-		
 	}
 	
 	 public ArrayList<String> getUrlList() {
-		 // 反回url 的arrayList，確保不會空引用
 		 return urlList != null ? urlList : new ArrayList<>();
 	 }
 	 
